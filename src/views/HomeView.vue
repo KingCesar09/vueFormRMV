@@ -35,6 +35,18 @@
       </v-row>
       <v-row>
         <v-col cols="12">
+          <v-checkbox v-model="complaint" label="Queja"></v-checkbox>
+          <v-checkbox v-model="appeal" label="Apelación"></v-checkbox>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-checkbox v-model="writtenResponse" label="Por escrito"></v-checkbox>
+          <v-checkbox v-model="emailResponse" label="E-mail"></v-checkbox>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
           <v-btn @click="submitForm">Enviar</v-btn>
         </v-col>
       </v-row>
@@ -54,13 +66,20 @@ export default {
       city: '',
       phone: '',
       email: '',
+      complaint: false,
+      appeal: false,
+      writtenResponse: false,
+      emailResponse: false,
     }
   },
   methods: {
     submitForm() {
-      // Logica con baaack-end
+      // Lógica con backend
       console.log('Datos del formulario:', this.firstName, this.lastName, this.idNumber, this.expedition, this.address, this.city, this.phone, this.email)
+      console.log('Tipo de trámite:', this.complaint ? 'Queja' : '', this.appeal ? 'Apelación' : '')
+      console.log('Medio de respuesta:', this.writtenResponse ? 'Por escrito' : '', this.emailResponse ? 'E-mail' : '')
     },
   },
 }
 </script>
+
