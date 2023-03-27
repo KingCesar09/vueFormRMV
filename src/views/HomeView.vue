@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   data() {
     return {
@@ -113,7 +114,28 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+        submitForm() {
+          Swal.fire({
+      title: 'Radicación',
+      text: 'La radicación del presente documento lo puede hacer a través de correo certificado a la dirección Avenida 30 de agosto No. 30-23 Pereira - Risaralda o en la ventanilla única de radicación en las instalaciones del CDA CERTI EXPRESS PEREIRA S.A.S; en la dirección referenciada anteriormente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Acepto',
+      customClass: {
+        confirmButton: 'btn-custom-class'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Recibido',
+          'Tu solicitud ha sido procesada',
+          'success'
+        )
+      }
+    })
       // Lógica con backend
       console.log('Datos del formulario:', this.firstName, this.lastName, this.idNumber, this.expedition, this.address, this.phone, this.email);
       console.log('Tipo de trámite:', this.complaint ? 'Queja' : '', this.appeal ? 'Apelación' : '');
@@ -122,4 +144,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.btn-custom-class {
+  font-size: 18px;
+  padding: 10px 24px;
+}
+
+</style>
 
