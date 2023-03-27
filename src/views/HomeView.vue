@@ -1,50 +1,66 @@
 <template>
-  <v-form>
+  <v-form v-model="valid">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="firstName" label="Nombres"></v-text-field>
+          <v-text-field v-model="firstName" label="Nombres" :rules="[v => !!v || 'El nombre es requerido']"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="lastName" label="Apellidos"></v-text-field>
+          <v-text-field v-model="lastName" label="Apellidos" :rules="[v => !!v || 'El apellido es requerido']"></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="idNumber" label="Número de Identificación"></v-text-field>
+          <v-text-field v-model="idNumber" label="Número de Identificación" :rules="[v => !!v || 'El número de identificación es requerido']"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="expedition" label="Expedido en"></v-text-field>
+          <v-text-field v-model="expedition" label="Expedido en" :rules="[v => !!v || 'El lugar de expedición es requerido']"></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="address" label="Dirección"></v-text-field>
+          <v-text-field v-model="address" label="Dirección" :rules="[v => !!v || 'La dirección es requerida']"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="city" label="Ciudad"></v-text-field>
+          <v-select v-model="city" label="Ciudad" :rules="[v => !!v || 'La ciudad es requerida']">
+          <v-list-item v-for="item in cities" :key="item.value" :value="item.value" v-text="item.label"></v-list-item>
+        </v-select>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="phone" label="Teléfono"></v-text-field>
+          <v-text-field v-model="phone" label="Teléfono" :rules="[v => !!v || 'El número de teléfono es requerido']"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
-          <v-text-field v-model="email" label="Correo Electrónico"></v-text-field>
+          <v-text-field v-model="email" label="Correo Electrónico" :rules="[v => !!v || 'El correo electrónico es requerido', v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'El correo electrónico no es válido']"></v-text-field>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-checkbox v-model="complaint" label="Queja"></v-checkbox>
-          <v-checkbox v-model="appeal" label="Apelación"></v-checkbox>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-checkbox v-model="writtenResponse" label="Por escrito"></v-checkbox>
-          <v-checkbox v-model="emailResponse" label="E-mail"></v-checkbox>
-        </v-col>
-      </v-row>
+            <v-card>
+        <v-card-title>Tipo de trámite</v-card-title>
+        <v-container grid>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-checkbox v-model="complaint" label="Queja"></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-checkbox v-model="appeal" label="Apelación"></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+      <v-card>
+        <v-card-title>Seleccione el medio por el cuál desea recibir respuesta</v-card-title>
+        <v-container grid>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-checkbox v-model="writtenResponse" label="Por escrito"></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-checkbox v-model="emailResponse" label="E-mail"></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
       <v-row>
         <v-col cols="12">
           <v-btn @click="submitForm">Enviar</v-btn>
@@ -63,23 +79,35 @@ export default {
       idNumber: '',
       expedition: '',
       address: '',
-      city: '',
       phone: '',
       email: '',
       complaint: false,
       appeal: false,
       writtenResponse: false,
       emailResponse: false,
-    }
+      cities: [
+        { value: 'Pereira', label: 'Pereira' },
+        { value: 'Bogotá', label: 'Bogotá' },
+        { value: 'Medellín', label: 'Medellín' },
+        { value: 'Cali', label: 'Cali' },
+        { value: 'Barranquilla', label: 'Barranquilla' },
+        { value: 'Cartagena', label: 'Cartagena' },
+        { value: 'Cúcuta', label: 'Cúcuta' },
+        { value: 'Santa Marta', label: 'Santa Marta' },
+        { value: 'Manizales', label: 'Manizales' },
+        { value: 'Bucaramanga', label: 'Bucaramanga' }
+      ],
+      city: 'Pereira',
+    };
   },
   methods: {
     submitForm() {
       // Lógica con backend
-      console.log('Datos del formulario:', this.firstName, this.lastName, this.idNumber, this.expedition, this.address, this.city, this.phone, this.email)
-      console.log('Tipo de trámite:', this.complaint ? 'Queja' : '', this.appeal ? 'Apelación' : '')
-      console.log('Medio de respuesta:', this.writtenResponse ? 'Por escrito' : '', this.emailResponse ? 'E-mail' : '')
+      console.log('Datos del formulario:', this.firstName, this.lastName, this.idNumber, this.expedition, this.address, this.city, this.phone, this.email);
+      console.log('Tipo de trámite:', this.complaint ? 'Queja' : '', this.appeal ? 'Apelación' : '');
+      console.log('Medio de respuesta:', this.writtenResponse ? 'Por escrito' : '', this.emailResponse ? 'E-mail' : '');
     },
   },
-}
+};
 </script>
 
