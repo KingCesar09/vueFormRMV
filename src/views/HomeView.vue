@@ -110,13 +110,12 @@ export default {
         { value: 'Manizales', label: 'Manizales' },
         { value: 'Bucaramanga', label: 'Bucaramanga' }
       ],
-      city: 'Pereira',
     };
   },
   methods: {
     submitForm() {
       // Lógica con backend
-      console.log('Datos del formulario:', this.firstName, this.lastName, this.idNumber, this.expedition, this.address, this.city, this.phone, this.email);
+      console.log('Datos del formulario:', this.firstName, this.lastName, this.idNumber, this.expedition, this.address, this.phone, this.email);
       console.log('Tipo de trámite:', this.complaint ? 'Queja' : '', this.appeal ? 'Apelación' : '');
       console.log('Medio de respuesta:', this.writtenResponse ? 'Por escrito' : '', this.emailResponse ? 'E-mail' : '');
     },
