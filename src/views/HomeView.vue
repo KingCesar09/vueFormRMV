@@ -1,3 +1,4 @@
+
 <template>
   <v-form v-model="valid">
     <v-container>
@@ -62,6 +63,17 @@
         </v-container>
       </v-card>
       <v-row>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title>Detalle su solicitud</v-card-title>
+          <v-card-text>
+            <strong>Aviso:</strong> En el presente campo describa detalladamente su solicitud, respondiendo las siguientes preguntas: ¿Cuál es el objeto de su petición, queja/reclamo o apelación? ¿Cuáles son los hechos en que se fundamenta la queja o apelación? Puede adicionar las pruebas que considere pertinentes.
+            <v-textarea v-model="requestDetail" outlined rows="5"></v-textarea>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+      <v-row>
         <v-col cols="12">
           <v-btn @click="submitForm">Enviar</v-btn>
         </v-col>
@@ -85,6 +97,7 @@ export default {
       appeal: false,
       writtenResponse: false,
       emailResponse: false,
+      requestDetail: '',
       cities: [
         { value: 'Pereira', label: 'Pereira' },
         { value: 'Bogotá', label: 'Bogotá' },
