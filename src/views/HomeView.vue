@@ -125,7 +125,8 @@ export default {
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Acepto',
       customClass: {
-        confirmButton: 'btn-custom-class'
+        confirmButton: 'btn-custom-class',
+        cancelButton: 'btn-custom-class2'
       }
     }).then((result) => {
       if (result.isConfirmed) {
@@ -145,11 +146,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 .btn-custom-class {
-  font-size: 18px;
-  padding: 10px 24px;
+  font-size: 58px;
+  padding: 10px 64px;
+}
+
+.btn-custom-class2 {
+  font-size: 58px;
+  padding: 10px 64px;
 }
 
 </style>
